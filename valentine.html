@@ -36,7 +36,7 @@ h1 {
     margin-bottom: 10px;
 }
 
-/* Heart-shaped photos */
+/* Romantic Photo Frames (No heart background) */
 .photos {
     display: flex;
     justify-content: center;
@@ -45,39 +45,23 @@ h1 {
 }
 
 .heart-frame {
-    width: 100px;
-    height: 100px;
-    position: relative;
-    transform: rotate(-45deg);
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transition: 0.3s ease;
 }
 
 .heart-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 15px;
-    transform: rotate(45deg);
 }
 
-.heart-frame::before,
-.heart-frame::after {
-    content: "";
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    background: white;
-    border-radius: 50%;
-    z-index: -1;
-}
-
-.heart-frame::before {
-    top: -50px;
-    left: 0;
-}
-
-.heart-frame::after {
-    left: 50px;
-    top: 0;
+.heart-frame:hover {
+    transform: scale(1.08);
 }
 
 /* Buttons */
@@ -91,10 +75,12 @@ button {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 /* Floating Hearts */
@@ -109,6 +95,19 @@ button:hover {
 @keyframes floatUp {
     0% { transform: translateY(0); opacity: 1; }
     100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* Surprise message animation */
+#surpriseMsg {
+    margin-top: 15px;
+    font-size: 18px;
+    display: none;
+    animation: fadeIn 1.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
 }
 </style>
 </head>
@@ -130,6 +129,8 @@ button:hover {
     <p id="msg"></p>
 
     <button onclick="playMusic()">Tap for a Surprise 💖</button>
+    <div id="surpriseMsg"></div>
+
     <br>
     <button onclick="forever()">Will You Be Mine Forever? ❤️</button>
 </div>
@@ -150,7 +151,17 @@ I promise to love you today, tomorrow, and always ❤️
 `;
 
 function playMusic() {
-    document.getElementById("music").play();
+    const music = document.getElementById("music");
+    music.play();
+
+    const surprise = document.getElementById("surpriseMsg");
+    surprise.style.display = "block";
+    surprise.innerHTML = `
+    💌 Surprise! 💌<br><br>
+    No matter where life takes us,<br>
+    I will always choose you.<br><br>
+    You are my today and all of my tomorrows 💞
+    `;
 }
 
 function forever() {
